@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+log.txt
+*.ipr
+*.iml
+*.iws
+src/main/resources/twitter4j.properties
+target
