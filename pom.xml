@@ -24,11 +24,6 @@
             <artifactId>junit</artifactId>
             <version>4.9</version>
         </dependency>
-        <dependency>
-            <groupId>batik</groupId>
-            <artifactId>batik-ext</artifactId>
-            <version>1.7</version>
-        </dependency>
     </dependencies>
     <build>
         <finalName>dynamicform</finalName>
