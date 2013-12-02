@@ -11,8 +11,8 @@
     <label for="title">表題</label><input type="text" size="50" id="title" name="title" value="請 求 書"/><br/>
     <label for="shortDescription">説明書き</label><input type="text" size="50" id="shortDescription" name="shortDescription" value="下記の通りご請求申し上げます。"/><br/>
     <label for="item1">適用</label><input type="text" size="50" id="item1" name="item1" value="商品1"/><br/>
-    <label for="item1quantity">数量</label><input type="text" id="item1quantity" name="item1quantity" value="1"/><br/>
-    <label for="item1price">単価</label><input type="text" id="item1price" name="item1price" value="20000"/><br/>
+    <label for="item1quantity">数量</label><input type="number" id="item1quantity" name="item1quantity" value="1"/><br/>
+    <label for="item1price">単価</label><input type="number" id="item1price" name="item1price" value="20000"/><br/>
     <label for="issuedBy">請求者住所、名前</label><br/><textarea cols="50" rows="10" id="issuedBy" name="issuedBy">987-6543
 中野県豊島市目黒42丁目3-2
 山本 裕介</textarea><br/>
@@ -28,6 +28,7 @@
     <input type="submit" id="submit" name="submit" value="作成"/>
 </form>
 <br/>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -36,7 +37,7 @@
     js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=111515485621450";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-href="https://java-form.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="https://java-form.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="yusuke"
    data-lang="ja">ツイート</a>
