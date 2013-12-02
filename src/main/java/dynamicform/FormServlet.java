@@ -40,6 +40,7 @@ public final class FormServlet extends HttpServlet {
         form.setMeta1Value(JapaneseDate.now().format(DateTimeFormatter.ofPattern("平成y年M月d日", Locale.JAPANESE)));
         form.setIssuedBy(req.getParameter("issuedBy"));
         form.setIssuedTo(req.getParameter("issuedTo"));
+        form.setShortDescription(req.getParameter("shortDescription"));
         for (int i = 0; i < 10; i++) {
             if (req.getParameter("item" + i) != null) {
                 form.addItem(new Item(
