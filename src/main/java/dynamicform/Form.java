@@ -94,7 +94,7 @@ public final class Form {
         items.add(item);
     }
 
-    final int 消費税率 = 5;
+    final int 消費税率 = 8;
 
     public void saveAs(OutputStream outputStream, String templateForm, String... excludes) throws IOException, DocumentException {
         stamper = new Stamper(Form.class.getResourceAsStream("/" + templateForm), outputStream);
