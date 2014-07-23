@@ -88,8 +88,8 @@ public final class Form {
     List<Item> items = new ArrayList<>();
 
     public void addItem(Item item) {
-        if (items.size() == 12) {
-            throw new IllegalStateException("number of items cannot exceed 12");
+        if (items.size() == 10) {
+            throw new IllegalStateException("number of items cannot exceed 10");
         }
         items.add(item);
     }
