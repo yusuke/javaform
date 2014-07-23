@@ -120,6 +120,7 @@ public final class Form {
         }
         stamper.set("tax", JPY.format(totalPrice * 消費税率 / 100));
         stamper.set("total-price", JPY.format(totalPrice * (100 + 消費税率) / 100));
+        stamper.set("total-price-big", JPY.format(totalPrice * (100 + 消費税率) / 100));
         stamper.set("note", note);
         stamper.close(excludes);
     }
