@@ -40,25 +40,29 @@ public final class FormServlet extends HttpServlet {
         form.setMeta1Value(JapaneseDate.now().format(DateTimeFormatter.ofPattern("平成y年M月d日", Locale.JAPANESE)));
         form.setIssuedBy(req.getParameter("issuedBy"));
         form.setIssuedTo(req.getParameter("issuedTo"));
-        form.setShortDescription(req.getParameter("shortDescription"));
-        for (int i = 0; i < 10; i++) {
-            if (req.getParameter("item" + i) != null) {
-                form.addItem(new Item(
-                        req.getParameter("item" + i),
-                        Integer.parseInt(req.getParameter("item" + i + "quantity")),
-                        Integer.parseInt(req.getParameter("item" + i + "price"))));
+        if("スパークル合同会社".equals(req.getParameter("issuedTo"))){
+           res.sendRedirect("http://sparkle.bz");
+        }else{
+            form.setShortDescription(req.getParameter("shortDescription"));
+            for (int i = 0; i < 10; i++) {
+                if (req.getParameter("item" + i) != null) {
+                    form.addItem(new Item(
+                            req.getParameter("item" + i),
+                            Integer.parseInt(req.getParameter("item" + i + "quantity")),
+                            Integer.parseInt(req.getParameter("item" + i + "price"))));
+                }
             }
+            form.setNote(req.getParameter("note"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(3000);
+            try {
+                form.saveAs(baos, "form.pdf", new String[]{});
+            } catch (DocumentException e) {
+                new ServletException(e);
+            }
+            res.setContentType("application/pdf");
+            res.setBufferSize(baos.size());
+            ServletOutputStream outputStream = res.getOutputStream();
+            outputStream.write(baos.toByteArray());
         }
-        form.setNote(req.getParameter("note"));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(3000);
-        try {
-            form.saveAs(baos, "form.pdf", new String[]{});
-        } catch (DocumentException e) {
-            new ServletException(e);
-        }
-        res.setContentType("application/pdf");
-        res.setBufferSize(baos.size());
-        ServletOutputStream outputStream = res.getOutputStream();
-        outputStream.write(baos.toByteArray());
     }
 }
