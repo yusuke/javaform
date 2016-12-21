@@ -38,11 +38,9 @@
 <script src="js/jquery.cookie.js"></script>
 <script src="js/sayt.jquery.js"></script>
 <script>
-    $(function()
-    $('#form').sayt();
-    $('#form').sayt({'autosave': false, 'autorecover': false, 'days': 7});
-});
-</script>
+    $(function() {
+    $('#form').sayt().sayt({'autosave': false, 'autorecover': false, 'days': 7})
+    });</script>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
