@@ -7,7 +7,7 @@
 <body>
 <a href="https://github.com/yusuke/javaform"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
 
-<form action="form" method="get">
+<form action="form" method="get" id="form">
     <label for="title">表題</label><input type="text" size="50" id="title" name="title" value="請 求 書"/><br/>
     <label for="shortDescription">説明書き</label><input type="text" size="50" id="shortDescription" name="shortDescription" value="下記の通りご請求申し上げます。"/><br/>
     <label for="item1">適用</label><input type="text" size="50" id="item1" name="item1" value="商品1"/><br/>
@@ -34,6 +34,13 @@
 本サービスに起因するいかなる問題について@yusukeは一切の責任を負いません。
 
 <div id="fb-root"></div>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/sayt.jquery.js"></script>
+<script>
+    $(function() {
+    $('#form').sayt().sayt({'autosave': false, 'autorecover': false, 'days': 7})
+    });</script>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
