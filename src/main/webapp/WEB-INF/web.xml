@@ -12,4 +12,13 @@
         <servlet-name>formServlet</servlet-name>
         <url-pattern>form</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>sofujoServlet</servlet-name>
+        <servlet-class>dynamicform.SofujoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sofujoServlet</servlet-name>
+        <url-pattern>sofujo</url-pattern>
+    </servlet-mapping>
 </web-app>

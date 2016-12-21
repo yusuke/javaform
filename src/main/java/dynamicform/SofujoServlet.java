@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.chrono.JapaneseDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Copyright 2013Yusuke Yamamoto
@@ -28,41 +27,36 @@ import java.util.Locale;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public final class FormServlet extends HttpServlet {
+public final class SofujoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         doGet(req, res);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        Form form = new Form(req.getParameter("title"));
-        form.setMeta1("請求日");
-        form.setMeta1Value(JapaneseDate.now().format(DateTimeFormatter.ofPattern("平成y年M月d日", Locale.JAPANESE)));
-        form.setIssuedBy(req.getParameter("issuedBy"));
-        form.setIssuedTo(req.getParameter("issuedTo"));
-        if("スパークル合同会社".equals(req.getParameter("issuedTo"))){
-           res.sendRedirect("http://sparkle.bz");
-        }else{
-            form.setShortDescription(req.getParameter("shortDescription"));
-            for (int i = 0; i < 10; i++) {
-                if (req.getParameter("item" + i) != null) {
-                    form.addItem(new Item(
-                            req.getParameter("item" + i),
-                            Integer.parseInt(req.getParameter("item" + i + "quantity")),
-                            Integer.parseInt(req.getParameter("item" + i + "price"))));
-                }
-            }
-            form.setNote(req.getParameter("note"));
+        try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(3000);
-            try {
-                form.saveAs(baos, "form.pdf", new String[]{});
-            } catch (DocumentException e) {
-                new ServletException(e);
-            }
+
+            Stamper stamper = new Stamper(Form.class.getResourceAsStream("/" + "sofujo.pdf"), baos);
+            String today = new SimpleDateFormat("yyyy年M月d日").format(new Date());
+            stamper.set("title", req.getParameter("title"));
+            stamper.set("meta1-value", today);
+            stamper.set("issued-to", req.getParameter("issuedTo"));
+            stamper.set("note1", req.getParameter("note1"));
+            stamper.set("note2", req.getParameter("note2"));
+            stamper.set("issued-by", req.getParameter("issuedBy"));
+
+            stamper.close("note2");
+
             res.setContentType("application/pdf");
             res.setBufferSize(baos.size());
             ServletOutputStream outputStream = res.getOutputStream();
             outputStream.write(baos.toByteArray());
+
+            baos.close();
+
+        } catch (DocumentException e) {
+            new ServletException(e);
         }
     }
 }

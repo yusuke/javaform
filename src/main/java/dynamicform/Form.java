@@ -88,13 +88,13 @@ public final class Form {
     List<Item> items = new ArrayList<>();
 
     public void addItem(Item item) {
-        if (items.size() == 12) {
-            throw new IllegalStateException("number of items cannot exceed 12");
+        if (items.size() == 10) {
+            throw new IllegalStateException("number of items cannot exceed 10");
         }
         items.add(item);
     }
 
-    final int 消費税率 = 5;
+    final int 消費税率 = 8;
 
     public void saveAs(OutputStream outputStream, String templateForm, String... excludes) throws IOException, DocumentException {
         stamper = new Stamper(Form.class.getResourceAsStream("/" + templateForm), outputStream);
@@ -120,6 +120,7 @@ public final class Form {
         }
         stamper.set("tax", JPY.format(totalPrice * 消費税率 / 100));
         stamper.set("total-price", JPY.format(totalPrice * (100 + 消費税率) / 100));
+        stamper.set("total-price-big", JPY.format(totalPrice * (100 + 消費税率) / 100));
         stamper.set("note", note);
         stamper.close(excludes);
     }
